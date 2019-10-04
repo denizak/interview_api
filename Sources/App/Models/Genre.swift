@@ -4,11 +4,11 @@ import Vapor
 final class Genre: SQLiteModel {
     var id: Int?
     var name: String
-    var films: [Film]
+    var films: [Film]?
 
     init(id: Int? = nil,
          name: String,
-         films: [Film]) {
+         films: [Film]? = nil) {
         self.id = id
         self.name = name
         self.films = films

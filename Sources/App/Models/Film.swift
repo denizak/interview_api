@@ -6,13 +6,13 @@ final class Film: SQLiteModel {
     var title: String
     var playableUrl: String
     var imageUrl: String
-    var genre: Genre?
+    var genre: Genre
 
     init(id: Int? = nil,
          title: String,
          playableUrl: String,
          imageUrl: String,
-         genre: Genre? = nil) {
+         genre: Genre) {
         self.id = id
         self.title = title
         self.playableUrl = playableUrl
