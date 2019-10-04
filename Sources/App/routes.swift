@@ -2,7 +2,7 @@ import Vapor
 
 /// Register your application's routes here.
 public func routes(_ router: Router) throws {
-    
+
     router.get { req in
         return "It works!"
     }
@@ -16,12 +16,6 @@ private func filmRoute(_ router: Router) {
     router.get("film", Int.parameter) { req -> Future<Film> in
         let filmId = try req.parameters.next(Int.self)
         return try filmController.fetch(req, filmId: filmId)
-            .map { film -> Film in
-                guard let film = film else {
-                    throw Abort(.notFound, reason: "No film with id \(filmId)")
-                }
-                return film
-        }
     }
 
     router.post("films", use: filmController.create)

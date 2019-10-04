@@ -6,8 +6,14 @@ final class FilmController {
         return Film.query(on: req).all()
     }
 
-    func fetch(_ req: Request, filmId: Int) throws -> Future<Film?> {
+    func fetch(_ req: Request, filmId: Int) throws -> Future<Film> {
         return Film.find(filmId, on: req)
+            .map { film -> Film in
+                guard let film = film else {
+                    throw Abort(.notFound, reason: "No film with id \(filmId)")
+                }
+                return film
+        }
     }
 
     func create(_ req: Request) throws -> Future<Film> {
