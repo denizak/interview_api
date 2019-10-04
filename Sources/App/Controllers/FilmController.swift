@@ -1,9 +1,13 @@
 import Vapor
 
 final class FilmController {
-    
+
     func index(_ req: Request) throws -> Future<[Film]> {
         return Film.query(on: req).all()
+    }
+
+    func fetch(_ req: Request, filmId: Int) throws -> Future<Film?> {
+        return Film.find(filmId, on: req)
     }
 
     func create(_ req: Request) throws -> Future<Film> {
