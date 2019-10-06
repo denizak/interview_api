@@ -47,7 +47,23 @@ final class GenreTests: XCTestCase {
         XCTAssertEqual(receivedGetGenres[0].id, receivedPostGenre.id)
     }
 
+    func testDeleteGenre() throws {
+        let genreName = "Thriller"
+        let genre = Genre(name: genreName)
+        let createdGenreResponse = try app.sendRequest(to: genreURI, method: .POST, body: genre)
+        let receivedPostGenre = try createdGenreResponse.content.decode(Genre.self).wait()
+
+        XCTAssertEqual(receivedPostGenre.name, genreName)
+        XCTAssertNotNil(receivedPostGenre.id)
+
+        let body: EmptyBody? = nil
+        let getGenreResponse = try app.sendRequest(to: genreURI + "1", method: .DELETE, body: body)
+
+        XCTAssertEqual(getGenreResponse.http.status, .ok)
+    }
+
     static let allTests = [
-        ("testAddGenre", testAddGenre)
+        ("testAddGenre", testAddGenre),
+        ("testDeleteGenre", testDeleteGenre)
     ]
 }
