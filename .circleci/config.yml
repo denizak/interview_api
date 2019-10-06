@@ -21,6 +21,9 @@ jobs:
       - run: 
           name: Compile code with optimizations
           command: swift build -c release
+      - run: 
+          name: Run unit tests
+          command: swift test
 
 workflows:
   version: 2
