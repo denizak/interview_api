@@ -11,7 +11,7 @@ import Vapor
 import FluentSQLite
 import XCTest
 
-final class UserTests: XCTestCase {
+final class GenreTests: XCTestCase {
     let genreURI = "/genre/"
     var app: Application!
     var conn: SQLiteConnection!

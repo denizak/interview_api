@@ -17,7 +17,7 @@ final class GenreController {
     }
 
     func getFilms(_ req: Request, genreId: Int) throws -> Future<[Film]> {
-        return try Genre.find(genreId, on: req)
+        return Genre.find(genreId, on: req)
             .flatMap { 
                 guard let genre = $0 else {
                     throw Abort(.notFound, reason: "No Genre with id \(genreId)")
