@@ -4,14 +4,17 @@ import Vapor
 final class Genre: SQLiteModel {
     var id: Int?
     var name: String
-    var films: [Film]?
 
     init(id: Int? = nil,
-         name: String,
-         films: [Film]? = nil) {
+         name: String) {
         self.id = id
         self.name = name
-        self.films = films
+    }
+}
+
+extension Genre {
+    var films: Children<Genre, Film> { 
+        return children(\.genreId)
     }
 }
 

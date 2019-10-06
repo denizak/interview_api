@@ -8,6 +8,20 @@ public func routes(_ router: Router) throws {
     }
 
     filmRoute(router)
+    genreRoute(router)
+}
+
+private func genreRoute(_ router: Router) {
+    let genreController = GenreController()
+
+    router.get("genre", use: genreController.index)
+    router.get("genre", Int.parameter) { req -> Future<Genre> in
+        let genreId = try req.parameters.next(Int.self)
+        return try genreController.fetch(req, genreId: genreId)
+    }
+
+    router.post("genre", use: genreController.create)
+    router.delete("genre", Genre.parameter, use: genreController.delete)
 }
 
 private func filmRoute(_ router: Router) {
