@@ -15,6 +15,10 @@ private func genreRoute(_ router: Router) {
     let genreController = GenreController()
 
     router.get("genre", use: genreController.index)
+    router.get("filmsWithGenreId", Int.parameter) { req -> Future<[Film]> in
+        let genreId = try req.parameters.next(Int.self)
+        return try genreController.getFilms(req, genreId: genreId)
+    }
     router.get("genre", Int.parameter) { req -> Future<Genre> in
         let genreId = try req.parameters.next(Int.self)
         return try genreController.fetch(req, genreId: genreId)

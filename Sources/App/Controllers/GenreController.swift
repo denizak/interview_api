@@ -16,6 +16,16 @@ final class GenreController {
         }
     }
 
+    func getFilms(_ req: Request, genreId: Int) throws -> Future<[Film]> {
+        return try Genre.find(genreId, on: req)
+            .flatMap { 
+                guard let genre = $0 else {
+                    throw Abort(.notFound, reason: "No Genre with id \(genreId)")
+                }
+                return try genre.films.query(on: req).all()
+        }
+    }
+
     func create(_ req: Request) throws -> Future<Genre> {
         return try req.content.decode(Genre.self).flatMap { genre in
             return genre.save(on: req)
