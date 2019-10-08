@@ -12,6 +12,8 @@ jobs:
       - run: 
           name: Run unit tests
           command: swift test
+      - store_test_results:
+          path: test-results
 
   linux-release:
     docker:
