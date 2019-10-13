@@ -6,6 +6,12 @@ jobs:
       - image: swift:5.1
     steps:
       - checkout
+      - run:
+        name: Update package
+        command: apt-get update
+      - run:
+        name: Install dependencies
+        command: apt-get install -y libssl-dev libicu-dev
       - run: 
           name: Compile code
           command: swift build
