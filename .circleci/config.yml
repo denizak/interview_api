@@ -12,10 +12,10 @@ jobs:
       - run:
           name: Install dependencies
           command: apt-get install -y libssl-dev libicu-dev
-      - run: 
+      - run:
           name: Compile code
           command: swift build
-      - run: 
+      - run:
           name: Run unit tests
           command: swift test
       - store_test_results:
@@ -26,10 +26,16 @@ jobs:
       - image: swift:5.1
     steps:
       - checkout
-      - run: 
+      - run:
+          name: Update package
+          command: apt-get update
+      - run:
+          name: Install dependencies
+          command: apt-get install -y libssl-dev libicu-dev
+      - run:
           name: Compile code with optimizations
           command: swift build -c release
-      - run: 
+      - run:
           name: Run unit tests
           command: swift test
 
